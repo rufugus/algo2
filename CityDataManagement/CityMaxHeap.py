@@ -41,11 +41,8 @@ class CityMaxHeap(AbstractCityHeap):
         Establish heap conditions for a Max-Heap recursive upwards.
         """
 
-        parent_index = self.get_parent_index(index)
-
-        if self.get_city_population(index) > self.get_city_population(parent_index):
-            self.swap_nodes(index, parent_index)
-            self.heapify_up_recursive(parent_index)
+        # TODO: implement me!
+        ...
 
     def heapify_floyd(self, index, amount_of_cities):
         """
@@ -59,6 +56,14 @@ class CityMaxHeap(AbstractCityHeap):
         """
         Establish heap conditions for a Max-Heap iterative downwards.
         """
+        for i in range(self.currentHeapLastIndex):
+            index = 0 + i
+            while index < self.currentHeapLastIndex:
+                if self.get_city_population(index) > self.get_city_population(self.get_parent_index(index)):
+                    self.swap_nodes(index, self.get_parent_index(index))
+                    index = self.get_parent_index(index)
+                else:
+                    break
 
 
     def heapify_down_recursive(self, index):
@@ -72,5 +77,6 @@ class CityMaxHeap(AbstractCityHeap):
         """
         Remove a City from the Max-Heap
         """
-        # TODO: implement me!
-        ...
+        self.swap_nodes(0, self.currentHeapLastIndex)
+        self.currentHeapLastIndex -= 1
+        self.heapify_down_iterative()

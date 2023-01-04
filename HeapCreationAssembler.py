@@ -41,8 +41,8 @@ class HeapCreationAssembler:
         self.measure_max_heap_execution_time_via_timeit(10)
 
         # Node add
-        self.cityDataManager.insert_new_city_into_max_city_heap("Hobbiton", "the Shire", 80000)
-        print("This should be removed!")
+        self.cityDataManager.insert_new_city_into_max_city_heap("Hobbiton", "the Shire", 80000000)
+
 
         # Node removal
         self.cityDataManager.remove_city_with_highest_population()
