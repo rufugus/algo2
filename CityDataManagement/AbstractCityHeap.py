@@ -104,13 +104,15 @@ class AbstractCityHeap(ABC):
         """
 
         if self.floyd:
+            self.heapStorage = self.rawCityData
+            self.currentHeapLastIndex = len(self.heapStorage) - 1
             self.build_heap_via_floyd()
         else:
             #     for i in self.rawCityData:
             #         self.insert(i)
             #         print(i)
             self.heapStorage = self.rawCityData
-            self.currentHeapLastIndex = len(self.rawCityData)
+            self.currentHeapLastIndex = len(self.heapStorage) - 1
             self.heapify_up_iterative()
 
     def insert(self, city):
@@ -119,24 +121,22 @@ class AbstractCityHeap(ABC):
         """
 
         self.heapStorage.append(city)
-        self.currentHeapLastIndex += 1
-        print(city.name)
-        print(self.heapStorage)
+        self.currentHeapLastIndex = len(self.heapStorage) - 1
+        self.heapify_up_iterative()
 
-        if self.recursive:
-            self.heapify_up_recursive(self.currentHeapLastIndex - 1)
-        else:
-            self.heapify_up_iterative()
+        # if self.recursive:
+        #     self.heapify_up_recursive(len(self.heapStorage) - 1)
+        # else:
+        #     self.heapify_up_iterative()
 
     def build_heap_via_floyd(self):
         """
         Build a Heap via Floyds Heap Construction Algorithm from a unsorted List Of Cities.
         """
 
-        for i in range(self.currentHeapLastIndex - 1, -1, -1):
+        for i in range(len(self.heapStorage) - 1, -1, -1):
             if self.get_city_population(i) > self.get_city_population(self.get_parent_index(i)):
-                self.heapStorage[i], self.heapStorage[(i - 1) // 2] = self.heapStorage[(i - 1) // 2], self.heapStorage[
-                    i]
+                self.swap_nodes(i, self.get_parent_index(i))
 
     def get_root_city(self):
         """
